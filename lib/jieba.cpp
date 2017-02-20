@@ -41,6 +41,30 @@ CJiebaWord* Cut(Jieba handle, const char* sentence, size_t len) {
   return res;
 }
 
+CJiebaToken* CutForSearch(Jieba handle, const char* sentence, size_t len) {
+  cppjieba::Jieba* x = (cppjieba::Jieba*)handle;
+  vector<string> words;
+  string s(sentence, len);
+  x->CutForSearch(s, words);
+  
+  CJiebaToken* res = (CJiebaToken*)malloc(sizeof(CJiebaToken) * (words.size() + 1));
+  size_t offset = 0;
+  for (size_t i = 0; i < words.size(); i++) {
+    res[i].offset= offset;
+    res[i].word = sentence + offset;
+    res[i].len = words[i].size();
+    offset += res[i].len;
+  }
+  if (offset != len) {
+    free(res);
+    return NULL;
+  }
+  res[words.size()].word = NULL;
+  res[words.size()].offset = 0;
+  res[words.size()].len = 0;
+  return res;
+}
+
 CJiebaWord*
 CutWithoutTagName(Jieba handle, const char* sentence, size_t len, const char* tagname)
 {
@@ -67,6 +91,10 @@ CutWithoutTagName(Jieba handle, const char* sentence, size_t len, const char* ta
 }
 
 void FreeWords(CJiebaWord* words) {
+  free(words);
+}
+
+void FreeTokens(CJiebaToken* words) {
   free(words);
 }
 

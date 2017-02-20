@@ -13,11 +13,21 @@ typedef struct {
   size_t len;
 } CJiebaWord;
 
+typedef struct {
+  const char* word;
+  size_t offset;
+  size_t len;
+} CJiebaToken;
+
+
 CJiebaWord* Cut(Jieba handle, const char* sentence, size_t len);
+
+CJiebaToken* CutForSearch(Jieba handle, const char* sentence, size_t len);
 
 CJiebaWord* CutWithoutTagName(Jieba, const char*, size_t, const char*);
 
 void FreeWords(CJiebaWord* words);
+void FreeTokens(CJiebaToken* words);
 
 bool JiebaInsertUserWord(Jieba handle, const char* word);
 
