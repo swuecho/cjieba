@@ -45,13 +45,13 @@ CJiebaToken* CutForSearch(Jieba handle, const char* sentence, size_t len) {
   cppjieba::Jieba* x = (cppjieba::Jieba*)handle;
   vector<string> words;
   string s(sentence, len);
-  x->CutForSearch(s, words);
-  
+  x->CutForSearch(s, words, true);
+// (const string& sentence, vector<string>& words, bool hmm = true)  
   CJiebaToken* res = (CJiebaToken*)malloc(sizeof(CJiebaToken) * (words.size() + 1));
   size_t offset = 0;
   for (size_t i = 0; i < words.size(); i++) {
     res[i].offset= offset;
-    res[i].word = sentence + offset;
+    strncpy((char *) res[i].word, words[i].data(), words[i].size());
     res[i].len = words[i].size();
     offset += res[i].len;
   }

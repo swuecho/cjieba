@@ -12,7 +12,7 @@ void CutDemo() {
   // init will take a few seconds to load dicts.
   Jieba handle = NewJieba(DICT_PATH, HMM_PATH, USER_DICT); 
 
-  const char* s = "南京市长江大桥";
+  const char* s = "小明硕士毕业于中国科学院计算所，后在日本京都大学深造";
   size_t len = strlen(s);
   CJiebaWord* words = Cut(handle, s, len); 
   CJiebaWord* x;
