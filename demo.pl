@@ -7,8 +7,6 @@ check_lib_or_exit( lib => [ 'jieba'  ],  libpath => './' );
 my $ffi = FFI::Platypus->new;
 $ffi->lib($libpath);
 
-$ffi->
-
 my  $DICT_PATH = "./dict/jieba.dict.utf8";
 my  $HMM_PATH = "./dict/hmm_model.utf8";
 my  $USER_DICT = "./dict/user.dict.utf8";
